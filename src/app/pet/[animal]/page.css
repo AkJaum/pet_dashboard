@@ -59,11 +59,21 @@
  * Gap: 20px entre foto e informações
  */
 .pet-header {
-  display: flex;
-  align-items: center;
-  gap: 30px;
-  background-color: #f3f4f6;
-  padding: 40px;
+    background: linear-gradient(135deg, #40E0D0 0%, #2E8B57 100%);
+    background-attachment: fixed;
+    width: 100%;
+    height: 200px;
+    padding: 40px;
+    margin: 0 auto 140px;
+    color: white;
+    border-radius: 0 0 20px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: normal;
+    overflow: visible;
+    position: relative;
+    z-index: 2;
 }
 
 /**
@@ -80,6 +90,7 @@
   height: 150px;
   object-fit: cover;
   flex-shrink: 0;
+  margin-top: 20px;
 }
 
 /**
@@ -92,7 +103,67 @@
   flex: 1;
   display: flex;
   flex-direction: column;
+  padding: 0 100px;
   gap: 10px;
+}
+
+.pet-profile {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.pet-header-text {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+}
+/**
+ * Tags do Pet (Espécie, Raça, Gênero, Idade)
+ * 
+ * Display: Flex com quebra de linha
+ * Gap: Espaço entre tags
+ */
+.pet-tags {
+  overflow: visible;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+/**
+ * Tag individual
+ */
+.pet-tag {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  display: inline-block;
+  background-color: rgba(255, 255, 255, 0.85);
+  color: #1a1a1a;
+}
+
+.pet-tag-especie {
+  background-color: #e3f2fd;
+  color: #1976d2;
+}
+
+.pet-tag-raca {
+  background-color: #e8f5e9;
+  color: #388e3c;
+}
+
+.pet-tag-genero {
+  background-color: #f3e5f5;
+  color: #7b1fa2;
+}
+
+.pet-tag-idade {
+  background-color: #fff3cd;
+  color: #856404;
 }
 
 /**
@@ -120,8 +191,9 @@
  */
 .pet-details {
   display: flex;
-  gap: 30px;
-  font-size: 16px;
+  margin-top: 5px;
+  gap: 50px;
+  font-size: 12px;
   color: #555555;
 }
 
@@ -135,60 +207,135 @@
   font-size: 12px;
   color: #999999;
   text-transform: uppercase;
-  font-weight: bold;
+  font-weight: 400;
 }
 
 .pet-detail-value {
-  font-size: 18px;
+  font-size: 16px;
   color: #333333;
   font-weight: 500;
 }
 
 /**
- * CONTEÚDO PRINCIPAL (Duas Colunas)
+ * CONTEÚDO PRINCIPAL COM ABAS
  * 
- * Display: Flex para criar layout lado a lado
+ * Display: Flex coluna para organizar navegação e conteúdo
  * Flex: 1 para expandir e preencher espaço
  */
 .pet-content {
   display: flex;
+  width: 70%;
+  flex-direction: column;
   flex: 1;
+  position: relative;
+  align-items: center;
+  margin: 0 auto;
+  z-index: 1;
+  background-color: #ffffff;
 }
 
 /**
- * Coluna 1: Comida e Remédio (60%)
+ * Navegação de Abas
  * 
- * Flex: 0 0 60% para ocupar 60% da largura
- * Padding: 40px
- * Border-right: 1px sólido para separar coluna
- * Background: Branco
- * Overflow-y: Auto para scroll se necessário
+ * Display: Flex para alinhar botões horizontalmente
+ * Border-bottom: Linha separadora
+ * Padding: Espaço interno
+ * Gap: Espaço entre botões
  */
-.pet-section-food {
-  flex: 0 0 50%;
-  padding: 40px 200px;
-  border-right: 1px solid #e5e7eb;
-  background-color: #ffffff;
-  overflow-y: auto;
+.pet-tabs-nav {
   display: flex;
-  flex-direction: column;
+  width: 100%;
+  justify-content: space-between;
+  border-bottom: 2px solid #e5e7eb;
+  padding: 0 40px;
+  background-color: #ffffff;
 }
 
 /**
- * Coluna 2: Notas (40%)
+ * Botões de Aba
  * 
- * Flex: 0 0 40% para ocupar 40% da largura
- * Padding: 40px
- * Background: Branco
+ * Padding: Espaço interno generoso
+ * Border: Nenhuma borda padrão
+ * Background: Transparente
+ * Cursor: Pointer
+ * Font-size: 16px
+ * Font-weight: 600
+ * Transition: Suaviza mudanças
+ * Border-bottom: 3px transparente que fica visível quando ativo
+ */
+.tab-button {
+  padding: 20px 20px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 400;
+  color: #999999;
+  transition: all 0.3s ease;
+  border-bottom: 3px solid transparent;
+  margin-bottom: 5px;
+}
+
+/**
+ * Botão de Aba Ativo
+ * 
+ * Color: Azul (cor primária)
+ * Border-bottom: Azul sólido para indicar aba ativa
+ */
+.tab-button.active {
+  color: #10d16a;
+  border-bottom-color: #ffffff;
+}
+
+/**
+ * Efeito Hover no Botão
+ * 
+ * Color: Muda para cinzento escuro
+ */
+.tab-button:hover {
+  color: #555555;
+}
+
+/**
+ * Conteúdo das Abas
+ * 
+ * Display: Flex para centralizar quando vazio
+ * Flex: 1 para expandir
  * Overflow-y: Auto para scroll se necessário
  */
-.pet-section-notes {
-  flex: 0 0 40%;
-  padding: 40px;
+.pet-tabs-content {
   background-color: #ffffff;
-  overflow-y: auto;
+  width: 100%
+}
+
+/**
+ * Painel de Aba Individual
+ * 
+ * Display: Flex coluna para organizar conteúdo
+ * Padding: Espaço interno
+ * Animation: Fade in quando aparece
+ */
+.pet-tab-pane {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 40px 100px;
+  animation: fadeIn 0.3s ease;
+}
+
+/**
+ * Animação de Fade In
+ * 
+ * Anima a opacidade ao mudar de aba
+ */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 /**
@@ -200,7 +347,6 @@
  * Margin-bottom: 10px para espaço antes do conteúdo
  * Color: Cinzento escuro
  * Width: 100% para ocupar toda a largura
- * Text-align: Center para centralizar
  */
 .pet-detail-container h2 {
   font-size: 24px;
@@ -211,15 +357,6 @@
   width: 100%;
 }
 
-.pet-section-food h2{
-    width: 100%;
-}
-
-.pet-section-notes h2 {
-  width: 100%;
-  text-align: center;
-}
-
 /**
  * Texto Padrão (Progresso, Informações)
  * 
@@ -227,17 +364,11 @@
  * Margin: 8px de espaço
  * Color: Cinzento escuro
  * Width: 100% para ocupar toda a largura
- * Text-align: Center para centralizar
  */
 .pet-detail-container p {
   font-size: 16px;
   margin: 8px 0;
   color: #555555;
-  width: 100%;
-}
-
-.pet-section-food p,
-.pet-section-notes p {
   width: 100%;
 }
 
@@ -253,8 +384,9 @@
  * Font-size: 16px
  * Margin: 10px 0 para espaço entre botões
  * Transition: Suaviza mudanças de cor
+ * :not(.tab-button): Exclui buttons de abas
  */
-.pet-detail-container button {
+.pet-detail-container button:not(.tab-button) {
   background-color: #0066cc;
   color: #ffffff;
   padding: 10px 20px;
@@ -271,8 +403,9 @@
  * Efeito Hover dos Botões
  * 
  * Background mais escuro ao passar o mouse
+ * :not(.tab-button): Exclui buttons de abas
  */
-.pet-detail-container button:hover {
+.pet-detail-container button:not(.tab-button):hover {
   background-color: #0052a3;
 }
 
@@ -282,8 +415,9 @@
  * Background: Cinzento claro
  * Cursor: Não-clicável
  * Opacity: Reduzida para indicar desabilitação
+ * :not(.tab-button): Exclui buttons de abas
  */
-.pet-detail-container button:disabled {
+.pet-detail-container button:not(.tab-button):disabled {
   background-color: #cccccc;
   cursor: not-allowed;
   opacity: 0.6;
@@ -321,7 +455,7 @@
  */
 .note-input-section input {
   padding: 8px;
-  width: 50%;
+  width: 100%;
   border: 1px solid #cccccc;
   border-radius: 4px;
   font-size: 14px;

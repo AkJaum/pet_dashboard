@@ -4,24 +4,94 @@
  * Componente: Home
  * 
  * Objetivo: Exibir lista de pets com seus status (alertas)
- * Cada pet é um botão que leva para a página de detalhes
+ * Cada pet é um card em grid 2x2 que leva para a página de detalhes
  * 
  * Funcionalidades:
  * - Carrega status de todos os pets da API
- * - Atualiza status a cada 1 minuto (60.000ms)
+ * - Busca por nome, raça, idade e gênero
  * - Exibe alertas de comida, remédio ou saúde
- * - Links para páginas individuais de cada pet
+ * - Grid responsivo 2x2 com PetCard componente
  */
 
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
+import PetCard from "./components/PetCard";
 import "./page.css";
 
 export default function Home() {
   // State para armazenar o status de todos os pets
   const [status, setStatus] = useState(null);
+  
+  // State para armazenar o texto da pesquisa
+  const [pesquisa, setPesquisa] = useState("");
+
+  // Lista de pets cadastrados com informações completas
+  const pets = [
+    { 
+      id: "tutu",
+      nome: "Tutu", 
+      emoji: "🐱", 
+      foto: "/tutu.jpeg",
+      tipo: "gato",
+      raca: "Vira-lata",
+      genero: "Macho",
+      dataNascimento: "2025-03-17"
+    },
+    { 
+      id: "noah",
+      nome: "Noah", 
+      emoji: "🐶", 
+      foto: "/noah.jpeg",
+      tipo: "cachorro",
+      raca: "Golden Retriever",
+      genero: "Macho",
+      dataNascimento: "2019-07-22"
+    }
+  ];
+
+  /**
+   * Calcula a idade do pet para usar na busca
+   * Retorna string formatada com anos e/ou meses
+   */
+  const calcularIdade = (dataNascimento) => {
+    const hoje = new Date();
+    const nascimento = new Date(dataNascimento);
+    
+    let anos = hoje.getFullYear() - nascimento.getFullYear();
+    let meses = hoje.getMonth() - nascimento.getMonth();
+    
+    if (meses < 0) {
+      anos--;
+      meses += 12;
+    }
+    
+    if (anos === 0) {
+      return `${meses} ${meses === 1 ? 'mês' : 'meses'}`;
+    }
+    
+    if (meses === 0) {
+      return `${anos} ${anos === 1 ? 'ano' : 'anos'}`;
+    }
+    
+    return `${anos} ${anos === 1 ? 'ano' : 'anos'} e ${meses} ${meses === 1 ? 'mês' : 'meses'}`;
+  };
+
+  /**
+   * Filtra pets baseado na pesquisa
+   * Procura por: nome, raça, idade e gênero
+   */
+  const petsFiltrados = pets.filter(pet => {
+    const termo = pesquisa.toLowerCase();
+    const idade = calcularIdade(pet.dataNascimento).toLowerCase();
+    
+    return (
+      pet.nome.toLowerCase().includes(termo) ||
+      pet.raca.toLowerCase().includes(termo) ||
+      pet.genero.toLowerCase().includes(termo) ||
+      idade.includes(termo)
+    );
+  });
 
   /**
    * Função: carregarStatus()
@@ -65,45 +135,48 @@ export default function Home() {
 
   return (
     <div className="page-container">
-      <h1>Monitoramento dos Pimpolinhos 🐾</h1>
+      <div className="page-header">
+          <h1 className="page-title">PetCare Hub 🐾</h1>
+          <p>Olá {status?.usuario?.nome || "usuário"}! Você tem {pets.length} pets cadastrados.</p>
+      </div>
 
-      {/* CARD DO TUTU */}
-      <div className="pet-card">
-        <Link href="/pet/tutu" className="pet-link">
-          <div className="pet-image">
-            <img
-              src="/tutu.jpeg"
-              alt="Tutu"
-            />
-          </div>
-          <h2 className="pet-name">Tutu 🐱</h2>
-        </Link>
-        {/* Exibe status do pet se disponível */}
-        {status?.tutu && (
-          <p className={`pet-status ${status.tutu.tipo}`}>
-            Status: {status.tutu.mensagem}
-          </p>
+      {/* BARRA DE PESQUISA */}
+      <div className="search-bar">
+        <input
+          type="text"
+          placeholder="🔍 Pesquisar animal..."
+          value={pesquisa}
+          onChange={(e) => setPesquisa(e.target.value)}
+          className="search-input"
+        />
+        {pesquisa && (
+          <button 
+            onClick={() => setPesquisa("")}
+            className="search-clear"
+          >
+            ✕
+          </button>
         )}
       </div>
 
-      {/* CARD DO NOAH */}
-      <div className="pet-card">
-        <Link href="/pet/noah" className="pet-link">
-          <div className="pet-image">
-            <img
-              src="/noah.jpeg"
-              alt="Noah"
+      {/* GRID DE PETS FILTRADOS */}
+      <p>Seus animais {pesquisa && `(${petsFiltrados.length} resultado${petsFiltrados.length !== 1 ? 's' : ''})`}</p>
+      
+      {petsFiltrados.length === 0 ? (
+        <p className="no-results">Nenhum pet encontrado 😕</p>
+      ) : (
+        <div className="pets-grid">
+          {petsFiltrados.map(pet => (
+            <PetCard 
+              key={pet.id}
+              pet={{
+                ...pet,
+                status: status?.[pet.id]
+              }}
             />
-          </div>
-          <h2 className="pet-name">Noah 🐶</h2>
-        </Link>
-        {/* Exibe status do pet se disponível */}
-        {status?.noah && (
-          <p className={`pet-status ${status.noah.tipo}`}>
-            Status: {status.noah.mensagem}
-          </p>
-        )}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

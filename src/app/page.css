@@ -21,10 +21,8 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 100%;
   align-items: center;
   justify-content: center;
-  padding: 40px;
 }
 
 /**
@@ -37,95 +35,144 @@
   font-weight: bold;
 }
 
+.page-header {
+    text-align: left;
+    background: linear-gradient(135deg, #40E0D0 0%, #2E8B57 100%);
+    background-attachment: fixed;
+    width: 100%;
+    height: auto;
+    padding: 40px;
+    margin: 0 auto;
+    color: white;
+    border-radius: 0 0 20px 20px;
+}
 /**
- * Card do Pet
+ * BARRA DE PESQUISA
  * 
- * Layout: Flexbox coluna (vertical)
- * Estilo: Fundo cinzento, borda arredondada
- * Animação: Muda cor de fundo e aumenta um pouco ao passar o mouse
- * Margin: 20px de espaço entre cards
- * Padding: 10px vertical, 60px horizontal
+ * Display: Flex para alinhar input e botão limpar
+ * Position: Relative para posicionar botão de limpar
+ * Width: 100% com max-width de 600px
+ * Margin: 20px para espaçamento
  */
-.pet-card {
+.search-bar {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: #f3f4f6;
-  padding: 10px 60px;
-  border-radius: 8px;
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  margin: 20px 0;
+}
+
+/**
+ * Input de Pesquisa
+ * 
+ * Padding: 12px para espaço interno confortável
+ * Border: 1px sólido cinzento com borda arredondada
+ * Font-size: 16px
+ * Width: 100% para preencher todo o espaço
+ * Transition: Suaviza mudanças de borda
+ */
+.search-input {
+  width: 100%;
+  padding: 12px 40px 12px 15px;
+  border: 1px solid #cccccc;
+  border-radius: 25px;
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+/**
+ * Input em Foco
+ * 
+ * Border-color: Azul para indicar que está selecionado
+ * Box-shadow: Sombra suave para destaque
+ */
+.search-input:focus {
+  border-color: #0066cc;
+  box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+}
+
+/**
+ * Botão Limpar Pesquisa
+ * 
+ * Position: Absolute para ficar dentro do input
+ * Right: 10px para alinhar à direita
+ * Background: Transparente
+ * Border: Nenhuma
+ * Cursor: Pointer para indicar clicável
+ * Font-size: 18px
+ * Color: Cinzento escuro
+ * Padding: 5px
+ * Transition: Suaviza mudanças de cor
+ */
+.search-clear {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
   cursor: pointer;
-  transition: background-color 0.3s ease;
-  margin-top: 20px;
+  font-size: 18px;
+  color: #666666;
+  padding: 5px;
+  transition: color 0.3s ease;
+}
+
+.search-clear:hover {
+  color: #333333;
 }
 
 /**
- * Efeito Hover no Card
+ * Mensagem de Nenhum Resultado
  * 
- * Quando o usuário passa o mouse:
- * - Fundo fica mais escuro
- * - Card aumenta 2% (scale: 1.02)
+ * Text-align: Center
+ * Font-size: 18px
+ * Color: Cinzento
+ * Margin: 40px para espaçamento
  */
-.pet-card:hover {
-  background-color: #e5e7eb;
-  scale: 1.02;
+.no-results {
+  text-align: center;
+  font-size: 18px;
+  color: #666666;
+  margin: 40px 0;
 }
 
 /**
- * Link Dentro do Card
+ * GRID DE PETS
  * 
- * Layout: Flexbox linha (foto e nome lado a lado)
- * Gap: 16px entre foto e nome
- * Width: Ocupa 100% do card
- * Remove underline do link padrão
+ * Display: CSS Grid com 2 colunas
+ * Grid-template-columns: 2 colunas de tamanho igual (1fr cada)
+ * Gap: 20px de espaçamento entre cards
+ * Width: 100% com max-width de 1200px
+ * Margin: 20px auto para centralizar
+ * Padding: 20px para espaçamento interno
  */
-.pet-link {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 16px;
-  width: 100%;
-  text-decoration: none;
-  color: inherit;
+.pets-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  width: 60%;
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
 }
 
 /**
- * Container da Foto do Pet
+ * RESPONSIVIDADE - MOBILE
  * 
- * Formato: Círculo (border-radius: 50%)
- * Tamanho: 100px x 100px
- * Overflow: Hidden garante que a imagem não saia do círculo
- * Flex-shrink: 0 previne que o tamanho diminua ao redimensionar
+ * Em telas menores que 768px:
+ * - Grid muda para 1 coluna (100%)
+ * - Cards ficam empilhados verticalmente
  */
-.pet-image {
-  border-radius: 50%;
-  width: 100px;
-  height: 100px;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
+@media (max-width: 768px) {
+  .pets-grid {
+    grid-template-columns: 1fr;
+    padding: 10px;
+  }
 }
 
 /**
- * Imagem Dentro do Container
- * 
- * Width/Height: 100% preenche todo o container
- * Object-fit: Cover mantém a proporção e preenche o espaço
+ * Card do Pet (legado - removido, agora usando componente PetCard)
+ * Os estilos do card agora estão em /components/PetCard.css
  */
-.pet-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-/**
- * Nome do Pet
- * 
- * Tamanho: 24px (grande)
- * Weight: Bold (negrito)
- */
-.pet-name {
-  font-size: 24px;
-  font-weight: bold;
-}

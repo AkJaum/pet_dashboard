@@ -28,6 +28,9 @@ export default function PetPage() {
     // State para controlar o valor do input de nova nota
     const [novaNota, setNovaNota] = useState("");
 
+    // State para controlar qual aba está ativa ("monitoramento" ou "notas")
+    const [abaAtiva, setAbaAtiva] = useState("monitoramento");
+
     /**
      * Função: carregar()
      * 
@@ -154,119 +157,150 @@ export default function PetPage() {
 
     return (
         <div className="pet-detail-container">
-            {/* LINK PARA VOLTAR À HOME */}
-            <Link href="/">← Voltar</Link>
-
             {/* HEADER COM INFORMAÇÕES DO PET */}
             <div className="pet-header">
-                <img src={`/${animal}.jpeg`} alt={animal} className="pet-header-image" />
+                <div className="pet-header-buttons">
+                    <Link href="/">← Voltar</Link>
+                    <div>
+                        
+                    </div>
+                </div>
                 <div className="pet-header-info">
-                    <h1>{animal.toUpperCase()}</h1>
+                    <div className="pet-profile">
+                    <img src={`/${animal}.jpeg`} alt={animal} className="pet-header-image" />
+                        <div className="pet-header-text">
+                            <h1>{animal.toUpperCase()}</h1>
+                            <div className="pet-tags">
+                                <span className="pet-tag pet-tag-especie">{pet.especie || "Não informado"}</span>
+                                <span className="pet-tag pet-tag-raca">{pet.raca || "Não informado"}</span>
+                                <span className="pet-tag pet-tag-genero">{pet.genero || "Não informado"}</span>
+                                <span className="pet-tag pet-tag-idade">{idadeFormatada}</span>
+                            </div>
+                        </div>
+                    </div>
                     <div className="pet-details">
                         <div className="pet-detail-item">
                             <span className="pet-detail-label">Data de Nascimento</span>
                             <span className="pet-detail-value">{dataNascimentoFormatada}</span>
                         </div>
                         <div className="pet-detail-item">
-                            <span className="pet-detail-label">Idade</span>
-                            <span className="pet-detail-value">{idadeFormatada}</span>
+                            <span className="pet-detail-label">Cor</span>
+                            <span className="pet-detail-value">{pet.cor || "Não informado"}</span>
                         </div>
                         <div className="pet-detail-item">
-                            <span className="pet-detail-label">Gênero</span>
-                            <span className="pet-detail-value">{pet.genero}</span>
+                            <span className="pet-detail-label">Peso</span>
+                            <span className="pet-detail-value">{pet.peso || "Não informado"}</span>
                         </div>
                     </div>
                 </div>
             </div>
 
-            {/* CONTEÚDO PRINCIPAL (Duas Colunas) */}
+            {/* CONTEÚDO PRINCIPAL COM ABAS */}
             <div className="pet-content">
-                {/* COLUNA 1: COMIDA E REMÉDIO (60%) */}
-                <div className="pet-section-food">
-
-                {/* SEÇÃO DE COMIDA */}
-                <h2>Comida</h2>
-                {/* Exibe progresso de comida com emojis de pote de ração */}
-                <p className="food-counter">
-                    {Array.from({ length: pet.maxComida }).map((_, i) => (
-                        <span key={i} className={`food-icon ${i < pet.comida ? "eaten" : "not-eaten"}`}>
-                            🥩
-                        </span>
-                    ))}
-                </p>
-                {/* Exibe data/hora da última refeição */}
-                <p>
-                    Última refeição:{" "}
-                    {pet.ultimoHorarioComida
-                        ? new Date(pet.ultimoHorarioComida).toLocaleString("pt-BR")
-                        : "Nenhuma ainda"}
-                </p>
-
-                {/* Botão para registrar comida */}
-                <button onClick={() => adicionar("comida")}>
-                    + Comida
-                </button>
-
-                {/* SEÇÃO DE REMÉDIO (apenas se o pet precisa de medicação) */}
-                {pet.temRemedio && (
-                    <>
-                        <h2>Remédio</h2>
-                        {/* Exibe progresso de remédio (ex: 1/2) */}
-                        <p className="medicine-counter">
-                            {Array.from({ length: pet.maxRemedio }).map((_, i) => (
-                                <span key={i} className={`medicine-icon ${i < pet.remedio ? "taken" : "not-taken"}`}>
-                                    💊
-                                </span>
-                            ))}
-                        </p>
-                        {/* Exibe data/hora da última medicação */}
-                        <p>
-                            Última medicação:{" "}
-                            {pet.ultimoHorarioRemedio
-                                ? new Date(pet.ultimoHorarioRemedio).toLocaleString("pt-BR")
-                                : "Nenhuma ainda"}
-                        </p>
-
-                        {/* Botão para registrar medicação */}
-                        <button onClick={() => adicionar("remedio")}>
-                            + Remédio
-                        </button>
-                    </>
-                )}
+                {/* BOTÕES DE NAVEGAÇÃO DAS ABAS */}
+                <div className="pet-tabs-nav">
+                    <button
+                        className={`tab-button ${abaAtiva === "monitoramento" ? "active" : ""}`}
+                        onClick={() => setAbaAtiva("monitoramento")}
+                    >
+                        📊 Monitoramento
+                    </button>
+                    <button
+                        className={`tab-button ${abaAtiva === "notas" ? "active" : ""}`}
+                        onClick={() => setAbaAtiva("notas")}
+                    >
+                        📝 Saúde
+                    </button>
+                                        <button
+                        className={`tab-button ${abaAtiva === "saude" ? "active" : ""}`}
+                        onClick={() => setAbaAtiva("saude")}
+                    >
+                        📝 Vacinas
+                    </button>
+                                        <button
+                        className={`tab-button ${abaAtiva === "vacinas" ? "active" : ""}`}
+                        onClick={() => setAbaAtiva("vacinas")}
+                    >
+                        📝 Notas
+                    </button>
                 </div>
 
-                {/* COLUNA 2: NOTAS (40%) */}
-                <div className="pet-section-notes">
-                    {/* SEÇÃO DE NOTAS */}
-                    <h2>Notas</h2>
+                {/* CONTEÚDO DAS ABAS */}
+                <div className="pet-tabs-content">
+                    {/* ABA 1: MONITORAMENTO */}
+                    {abaAtiva === "monitoramento" && (
+                        <div className="pet-tab-pane">
+                            {/* SEÇÃO DE COMIDA */}
+                            <h2>Comida</h2>
+                            <p className="food-counter">
+                                {Array.from({ length: pet.maxComida }).map((_, i) => (
+                                    <span key={i} className={`food-icon ${i < pet.comida ? "eaten" : "not-eaten"}`}>
+                                        🥩
+                                    </span>
+                                ))}
+                            </p>
+                            <p>
+                                Última refeição:{" "}
+                                {pet.ultimoHorarioComida
+                                    ? new Date(pet.ultimoHorarioComida).toLocaleString("pt-BR")
+                                    : "Nenhuma ainda"}
+                            </p>
+                            <button onClick={() => adicionar("comida")}>
+                                + Comida
+                            </button>
 
-                    {/* INPUT PARA ADICIONAR NOVA NOTA */}
-                    <div className="note-input-section">
-                        <input
-                            type="text"
-                            value={novaNota}
-                            onChange={(e) => setNovaNota(e.target.value)}
-                            placeholder="Digite uma nova nota..."
-                        />
+                            {/* SEÇÃO DE REMÉDIO */}
+                            {pet.temRemedio && (
+                                <>
+                                    <h2>Remédio</h2>
+                                    <p className="medicine-counter">
+                                        {Array.from({ length: pet.maxRemedio }).map((_, i) => (
+                                            <span key={i} className={`medicine-icon ${i < pet.remedio ? "taken" : "not-taken"}`}>
+                                                💊
+                                            </span>
+                                        ))}
+                                    </p>
+                                    <p>
+                                        Última medicação:{" "}
+                                        {pet.ultimoHorarioRemedio
+                                            ? new Date(pet.ultimoHorarioRemedio).toLocaleString("pt-BR")
+                                            : "Nenhuma ainda"}
+                                    </p>
+                                    <button onClick={() => adicionar("remedio")}>
+                                        + Remédio
+                                    </button>
+                                </>
+                            )}
+                        </div>
+                    )}
 
-                        {/* Botão desabilitado se o campo estiver vazio */}
-                        <button
-                            onClick={() => adicionar("nota", novaNota)}
-                            disabled={!novaNota.trim()}
-                        >
-                            Adicionar Nota
-                        </button>
-                    </div>
-
-                    {/* LISTA DE NOTAS ANTERIORES */}
-                    <ul>
-                        {pet.notas?.map((nota, index) => (
-                            <li key={index}>
-                                {/* Exibe data e conteúdo da nota */}
-                                {nota.data} - {nota.texto}
-                            </li>
-                        ))}
-                    </ul>
+                    {/* ABA 2: NOTAS */}
+                    {abaAtiva === "notas" && (
+                        <div className="pet-tab-pane">
+                            <h2>Notas</h2>
+                            <div className="note-input-section">
+                                <input
+                                    type="text"
+                                    value={novaNota}
+                                    onChange={(e) => setNovaNota(e.target.value)}
+                                    placeholder="Digite uma nova nota..."
+                                />
+                                <button
+                                    onClick={() => adicionar("nota", novaNota)}
+                                    disabled={!novaNota.trim()}
+                                >
+                                    Adicionar Nota
+                                </button>
+                            </div>
+                            <ul>
+                                {pet.notas?.map((nota, index) => (
+                                    <li key={index}>
+                                        {nota.data} - {nota.texto}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>

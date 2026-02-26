@@ -21,7 +21,11 @@ let pets = {
   tutu: {
     // Informações básicas
     dataNascimento: "2025-03-17",
+    especie: "Gato",
     genero: "Macho",
+    raca: "Vira-lata",
+    peso: "3,4 kg",
+    cor: "Branco e laranja",
 
     comida: 0,
     ultimoHorarioComida: null,
@@ -39,7 +43,11 @@ let pets = {
   noah: {
     // Informações básicas
     dataNascimento: "2019-07-22",
+    especie: "Cachorro",
     genero: "Macho",
+    raca: "Vira-lata",
+    peso: "28 kg",
+    cor: "Branco",
 
     comida: 0,
     ultimoHorarioComida: null,
