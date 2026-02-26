@@ -1,0 +1,131 @@
+/**
+ * PAGE.CSS - Estilos da Página Inicial
+ * 
+ * Componentes:
+ * - page-container: Container principal com layout flexbox
+ * - pet-card: Card de cada pet (funciona como botão)
+ * - pet-link: Link clicável dentro do card
+ * - pet-image: Container circular da foto
+ * - pet-name: Nome do pet
+ * - pet-status: Status/alerta do pet com cores variadas
+ */
+
+/**
+ * Container Principal
+ * 
+ * Layout: Flexbox coluna (vertical)
+ * Alinhamento: Centralizado tanto vertical quanto horizontalmente
+ * Padding: 40px de espaçamento interno
+ */
+.page-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+
+/**
+ * Título Principal
+ * 
+ * Tamanho de fonte grande e negrito
+ */
+.page-container h1 {
+  font-size: 32px;
+  font-weight: bold;
+}
+
+/**
+ * Card do Pet
+ * 
+ * Layout: Flexbox coluna (vertical)
+ * Estilo: Fundo cinzento, borda arredondada
+ * Animação: Muda cor de fundo e aumenta um pouco ao passar o mouse
+ * Margin: 20px de espaço entre cards
+ * Padding: 10px vertical, 60px horizontal
+ */
+.pet-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f3f4f6;
+  padding: 10px 60px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 20px;
+}
+
+/**
+ * Efeito Hover no Card
+ * 
+ * Quando o usuário passa o mouse:
+ * - Fundo fica mais escuro
+ * - Card aumenta 2% (scale: 1.02)
+ */
+.pet-card:hover {
+  background-color: #e5e7eb;
+  scale: 1.02;
+}
+
+/**
+ * Link Dentro do Card
+ * 
+ * Layout: Flexbox linha (foto e nome lado a lado)
+ * Gap: 16px entre foto e nome
+ * Width: Ocupa 100% do card
+ * Remove underline do link padrão
+ */
+.pet-link {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  text-decoration: none;
+  color: inherit;
+}
+
+/**
+ * Container da Foto do Pet
+ * 
+ * Formato: Círculo (border-radius: 50%)
+ * Tamanho: 100px x 100px
+ * Overflow: Hidden garante que a imagem não saia do círculo
+ * Flex-shrink: 0 previne que o tamanho diminua ao redimensionar
+ */
+.pet-image {
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/**
+ * Imagem Dentro do Container
+ * 
+ * Width/Height: 100% preenche todo o container
+ * Object-fit: Cover mantém a proporção e preenche o espaço
+ */
+.pet-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/**
+ * Nome do Pet
+ * 
+ * Tamanho: 24px (grande)
+ * Weight: Bold (negrito)
+ */
+.pet-name {
+  font-size: 24px;
+  font-weight: bold;
+}

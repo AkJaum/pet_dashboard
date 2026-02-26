@@ -1,26 +1,60 @@
-@import "tailwindcss";
+/**
+ * GLOBALS.CSS - Estilos Globais do Projeto
+ * 
+ * Normalização de estilos padrão do navegador
+ * Garante que a página não ultrapasse o tamanho da viewport
+ */
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/**
+ * Reset do HTML
+ * 
+ * Height: 100% para ocupar toda a altura da viewport
+ * Margin: 0 para remover margem padrão
+ * Padding: 0 para remover padding padrão
+ * Box-sizing: border-box para incluir padding/border na largura
+ */
+html {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+/**
+ * Reset do Body
+ * 
+ * Height: 100% para ocupar toda a altura da viewport
+ * Width: 100% para ocupar toda a largura disponível
+ * Margin: 0 para remover margem padrão
+ * Padding: 0 para remover padding padrão
+ * Overflow-x: hidden para evitar scroll horizontal
+ * Box-sizing: border-box para consistência
+ * Font-family: Arial para fonte padrão
+ */
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+/**
+ * Box-sizing para todos os elementos
+ * 
+ * Garante que padding e border sejam inclusos na largura/altura
+ */
+* {
+  box-sizing: border-box;
+}
+
+/**
+ * Container Root do Next.js
+ * 
+ * Height: 100% para expandir com o body
+ */
+#__next {
+  height: 100%;
 }

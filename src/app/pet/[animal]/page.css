@@ -1,0 +1,461 @@
+/**
+ * [ANIMAL]/PAGE.CSS - Estilos da Página de Detalhes do Pet
+ * 
+ * Componentes:
+ * - pet-detail-container: Container principal da página
+ * - pet-detail-header: Cabeçalho com link voltar e nome
+ * - section-title: Título de cada seção (Comida, Remédio, Notas)
+ * - pet-stat: Exibição do progresso (ex: 2/3)
+ * - pet-info: Informações adicionais (última refeição, etc)
+ * - pet-button: Botões de ação (Comida, Remédio, Adicionar Nota)
+ * - notes-section: Seção de notas
+ * - note-input: Input para adicionar notas
+ * - notes-list: Lista de notas anteriores
+ */
+
+.pet-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin: 0 auto;
+}
+
+.pet-image {
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/**
+ * Container Principal
+ * 
+ * Padding: 40px de espaçamento em todos os lados
+ * Background: Branco (padrão)
+ * Min-height: Garante altura mínima
+ * Display: Flex com flex-direction column para organizar header e conteúdo
+ * Margin: 0 auto para centralizar
+ */
+.pet-detail-container {
+  padding: 0;
+  background-color: #ffffff;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/**
+ * HEADER DA PÁGINA
+ * 
+ * Contém: foto, nome, informações (data, idade, gênero)
+ * Display: Flex para alinhar foto e informações
+ * Background: Cinzento claro
+ * Padding: 40px
+ * Gap: 20px entre foto e informações
+ */
+.pet-header {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  background-color: #f3f4f6;
+  padding: 40px;
+}
+
+/**
+ * Imagem do Pet (Banner)
+ * 
+ * Formato: Quadrado com cantos arredondados
+ * Tamanho: 150px x 150px
+ * Object-fit: Cover para preencher sem deformar
+ * Flex-shrink: 0 para manter tamanho fixo
+ */
+.pet-header-image {
+  border-radius: 8px;
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+/**
+ * Seção de Informações do Header
+ * 
+ * Flex: 1 para ocupar espaço restante
+ * Display: Flex flex-direction column para alinhar verticalmente
+ */
+.pet-header-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/**
+ * Título do Pet (Nome em MAIÚSCULAS)
+ * 
+ * Tamanho: 40px
+ * Weight: Bold (negrito)
+ * Margin: 0
+ * Color: Preto
+ */
+.pet-header-info h1 {
+  font-size: 40px;
+  font-weight: bold;
+  margin: 0;
+  color: #000000;
+}
+
+/**
+ * Detalhes do Pet (Data, Idade, Gênero)
+ * 
+ * Display: Flex para alinhar horizontalmente
+ * Gap: 30px entre informações
+ * Font-size: 16px
+ * Color: Cinzento escuro
+ */
+.pet-details {
+  display: flex;
+  gap: 30px;
+  font-size: 16px;
+  color: #555555;
+}
+
+.pet-detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.pet-detail-label {
+  font-size: 12px;
+  color: #999999;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.pet-detail-value {
+  font-size: 18px;
+  color: #333333;
+  font-weight: 500;
+}
+
+/**
+ * CONTEÚDO PRINCIPAL (Duas Colunas)
+ * 
+ * Display: Flex para criar layout lado a lado
+ * Flex: 1 para expandir e preencher espaço
+ */
+.pet-content {
+  display: flex;
+  flex: 1;
+}
+
+/**
+ * Coluna 1: Comida e Remédio (60%)
+ * 
+ * Flex: 0 0 60% para ocupar 60% da largura
+ * Padding: 40px
+ * Border-right: 1px sólido para separar coluna
+ * Background: Branco
+ * Overflow-y: Auto para scroll se necessário
+ */
+.pet-section-food {
+  flex: 0 0 50%;
+  padding: 40px 200px;
+  border-right: 1px solid #e5e7eb;
+  background-color: #ffffff;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+/**
+ * Coluna 2: Notas (40%)
+ * 
+ * Flex: 0 0 40% para ocupar 40% da largura
+ * Padding: 40px
+ * Background: Branco
+ * Overflow-y: Auto para scroll se necessário
+ */
+.pet-section-notes {
+  flex: 0 0 40%;
+  padding: 40px;
+  background-color: #ffffff;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+/**
+ * Títulos das Seções (Comida, Remédio, Notas)
+ * 
+ * Tamanho: 24px
+ * Weight: Bold (negrito)
+ * Margin-top: 30px para separação entre seções
+ * Margin-bottom: 10px para espaço antes do conteúdo
+ * Color: Cinzento escuro
+ * Width: 100% para ocupar toda a largura
+ * Text-align: Center para centralizar
+ */
+.pet-detail-container h2 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 30px;
+  margin-bottom: 10px;
+  color: #333333;
+  width: 100%;
+}
+
+.pet-section-food h2{
+    width: 100%;
+}
+
+.pet-section-notes h2 {
+  width: 100%;
+  text-align: center;
+}
+
+/**
+ * Texto Padrão (Progresso, Informações)
+ * 
+ * Tamanho: 16px
+ * Margin: 8px de espaço
+ * Color: Cinzento escuro
+ * Width: 100% para ocupar toda a largura
+ * Text-align: Center para centralizar
+ */
+.pet-detail-container p {
+  font-size: 16px;
+  margin: 8px 0;
+  color: #555555;
+  width: 100%;
+}
+
+.pet-section-food p,
+.pet-section-notes p {
+  width: 100%;
+}
+
+/**
+ * Botões de Ação
+ * 
+ * Background: Azul padrão
+ * Color: Branco
+ * Padding: 10px 20px para tamanho confortável
+ * Border: Nenhuma (removida)
+ * Border-radius: 4px para cantos arredondados
+ * Cursor: Indica que é clicável
+ * Font-size: 16px
+ * Margin: 10px 0 para espaço entre botões
+ * Transition: Suaviza mudanças de cor
+ */
+.pet-detail-container button {
+  background-color: #0066cc;
+  color: #ffffff;
+  padding: 10px 20px;
+  border: none;
+  max-width: 300px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  margin: 10px 0;
+  transition: background-color 0.3s ease;
+}
+
+/**
+ * Efeito Hover dos Botões
+ * 
+ * Background mais escuro ao passar o mouse
+ */
+.pet-detail-container button:hover {
+  background-color: #0052a3;
+}
+
+/**
+ * Botões Desabilitados
+ * 
+ * Background: Cinzento claro
+ * Cursor: Não-clicável
+ * Opacity: Reduzida para indicar desabilitação
+ */
+.pet-detail-container button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/**
+ * Seção de Notas
+ * 
+ * Margin-bottom: 15px para espaço
+ * Display: Flex para alinhar input e botão lado a lado
+ * Gap: 10px entre input e botão
+ * Align-items: Center para alinhar verticalmente
+ * Width: 100% para ocupar toda a largura
+ * Justify-content: Center para centralizar
+ */
+.note-input-section {
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  width: 100%;
+  justify-content: center;
+}
+
+/**
+ * Input de Texto para Notas
+ * 
+ * Padding: 8px para espaço interno
+ * Width: 70% da largura disponível
+ * Border: 1px cinzento
+ * Border-radius: 4px
+ * Font-size: 14px
+ * Font-family: Arial para consistência
+ */
+.note-input-section input {
+  padding: 8px;
+  width: 50%;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  font-size: 14px;
+  font-family: Arial, sans-serif;
+}
+
+/**
+ * Focus no Input (quando selecionado)
+ * 
+ * Border-color: Azul para indicar foco
+ * Outline: Nenhum para remover padrão do navegador
+ */
+.note-input-section input:focus {
+  border-color: #0066cc;
+  outline: none;
+}
+
+/**
+ * Lista de Notas
+ * 
+ * Margin-top: 20px para separação
+ * List-style: Padrão (pontos)
+ * Padding-left: 20px para indentação
+ * Width: 100% para ocupar toda a largura
+ * Display: Flex com flex-direction column para alinhar itens
+ * Align-items: Center para centralizar
+ */
+.pet-detail-container ul {
+  margin-top: 20px;
+  list-style: disc;
+  padding-left: 20px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/**
+ * Itens da Lista de Notas
+ * 
+ * Font-size: 14px
+ * Margin: 8px de espaço entre itens
+ * Color: Cinzento escuro
+ * Line-height: 1.5 para melhor legibilidade
+ */
+.pet-detail-container li {
+  font-size: 14px;
+  margin: 8px 0;
+  color: #555555;
+  line-height: 1.5;
+}
+
+/**
+ * CONTADOR DE COMIDA COM EMOJIS
+ * 
+ * Display: Flex para alinhar emojis horizontalmente
+ * Gap: 10px entre emojis
+ * Margin: 15px para separação
+ */
+.food-counter {
+  display: flex;
+  gap: 10px;
+  margin: 15px 0;
+  font-size: 28px;
+}
+
+/**
+ * Ícone de Comida Individual
+ * 
+ * Transição suave de opacidade
+ * Cursor: pointer para indicar interatividade
+ */
+.food-icon {
+  transition: opacity 0.3s ease;
+  cursor: pointer;
+}
+
+/**
+ * Ícone de Comida Comido
+ * 
+ * Opacidade: 1 (totalmente visível)
+ */
+.food-icon.eaten {
+  opacity: 1;
+}
+
+/**
+ * Ícone de Comida Não Comido
+ * 
+ * Opacidade: 0.3 (bem transparente)
+ */
+.food-icon.not-eaten {
+  opacity: 0.3;
+}
+
+/**
+ * CONTADOR DE REMÉDIO COM EMOJIS
+ * 
+ * Display: Flex para alinhar emojis horizontalmente
+ * Gap: 10px entre emojis
+ * Margin: 15px para separação
+ */
+.medicine-counter {
+  display: flex;
+  gap: 10px;
+  margin: 15px 0;
+  font-size: 28px;
+}
+
+/**
+ * Ícone de Remédio Individual
+ * 
+ * Transição suave de opacidade
+ * Cursor: pointer para indicar interatividade
+ */
+.medicine-icon {
+  transition: opacity 0.3s ease;
+  cursor: pointer;
+}
+
+/**
+ * Ícone de Remédio Tomado
+ * 
+ * Opacidade: 1 (totalmente visível)
+ */
+.medicine-icon.taken {
+  opacity: 1;
+}
+
+/**
+ * Ícone de Remédio Não Tomado
+ * 
+ * Opacidade: 0.3 (bem transparente)
+ */
+.medicine-icon.not-taken {
+  opacity: 0.3;
+}
